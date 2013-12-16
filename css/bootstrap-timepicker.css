@@ -2,7 +2,7 @@
  * Timepicker Component for Twitter Bootstrap
  *
  * Copyright 2013 Joris de Wit
- *
+ * Improvements by Christophe Sailly
  * Contributors https://github.com/jdewit/bootstrap-timepicker/graphs/contributors
  *
  * For the full copyright and license information, please view the LICENSE
@@ -23,10 +23,10 @@
   left: auto;
   right: 13px;
 }
-.bootstrap-timepicker .add-on {
+.bootstrap-timepicker .input-group-addon {
   cursor: pointer;
 }
-.bootstrap-timepicker .add-on i {
+.bootstrap-timepicker .input-group-addon i {
   display: inline-block;
   width: 16px;
   height: 16px;
