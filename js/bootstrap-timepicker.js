@@ -2,7 +2,7 @@
  * Timepicker Component for Twitter Bootstrap
  *
  * Copyright 2013 Joris de Wit
- *
+ * Improvements by Christophe Sailly
  * Contributors https://github.com/jdewit/bootstrap-timepicker/graphs/contributors
  *
  * For the full copyright and license information, please view the LICENSE
@@ -38,14 +38,13 @@
     constructor: Timepicker,
     _init: function() {
       var self = this;
-
-      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-append') || this.$element.parent().hasClass('input-prepend'))) {
-        this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
+      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-group'))) {
+        this.$element.parent('.input-group').find('.input-group-addon').on({
           'click.timepicker': $.proxy(this.showWidget, this)
         });
         this.$element.on({
           'focus.timepicker': $.proxy(this.highlightUnit, this),
-          'click.timepicker': $.proxy(this.highlightUnit, this),
+          'click.timepicker': $.proxy(this.showWidget, this),
           'keydown.timepicker': $.proxy(this.elementKeydown, this),
           'blur.timepicker': $.proxy(this.blurElement, this),
           'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
@@ -255,16 +254,16 @@
 
       templateContent = '<table>'+
          '<tr>'+
-           '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementHour"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'+
            '<td class="separator">&nbsp;</td>'+
-           '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementMinute"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'+
            (this.showSeconds ?
              '<td class="separator">&nbsp;</td>'+
-             '<td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>'
+             '<td><a href="#" data-action="incrementSecond"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'
            : '') +
            (this.showMeridian ?
              '<td class="separator">&nbsp;</td>'+
-             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'
+             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'
            : '') +
          '</tr>'+
          '<tr>'+
@@ -281,16 +280,16 @@
            : '') +
          '</tr>'+
          '<tr>'+
-           '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementHour"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'+
            '<td class="separator"></td>'+
-           '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementMinute"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'+
            (this.showSeconds ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="decrementSecond"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'
            : '') +
            (this.showMeridian ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="toggleMeridian"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'
            : '') +
          '</tr>'+
        '</table>';
@@ -614,7 +613,7 @@
       var widgetWidth = this.$widget.outerWidth(), widgetHeight = this.$widget.outerHeight(), visualPadding = 10, windowWidth =
         $(window).width(), windowHeight = $(window).height(), scrollTop = $(window).scrollTop();
 
-      var zIndex = parseInt(this.$element.parents().filter(function() {}).first().css('z-index'), 10) + 10;
+	  var zIndex = parseInt(this.$element.parents().filter(function() {return $(this).css('z-index') != 'auto';}).first().css('z-index'))+10;
       var offset = this.component ? this.component.parent().offset() : this.$element.offset();
       var height = this.component ? this.component.outerHeight(true) : this.$element.outerHeight(false);
       var width = this.component ? this.component.outerWidth(true) : this.$element.outerWidth(false);
